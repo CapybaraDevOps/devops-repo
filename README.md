@@ -43,7 +43,7 @@ There are two ways to connect to the VMs:
 ```
 2. **SSH with IP** - Directly connect using SSH:
 ```
-   ssh vagrant@[IP]
+   ssh -i ./ssh_keys/vagrant_rsa vagrant@[IP]
 ```
 ## Troubleshooting SSH Issues
 
@@ -64,7 +64,7 @@ ssh-keyscan -H [IP] >> ~/.ssh/known_hosts
 
 For an SFTP connection, use:
 ```
-sftp -i ./ssh_keys/vagrant_rsa vagrant@[IP]
+sftp [IP]
 ```
 ## Cleaning Up
 
