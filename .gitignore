@@ -1,0 +1,5 @@
+# Ignore Vagrant folders
+.vagrant/
+
+# Ignore directory for SSH keys
+ssh_keys/
