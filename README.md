@@ -71,7 +71,6 @@ sftp [IP]
 For a rkhunter execution:
 ```
 sudo rkhunter -c --enable all --disable none --skip-keypress 1>/dev/null &
-
 ```
 runs in background, output supressed
 audit details logged in /var/log/rkhunter.log (readable by root only due to security purposes)
