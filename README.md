@@ -39,11 +39,11 @@ There are two ways to connect to the VMs:
 
 1. **Vagrant SSH** - Connect using Vagrant's built-in SSH command:
 ```
-   vagrant ssh [name_of_vm]
+vagrant ssh [name_of_vm]
 ```
 2. **SSH with IP** - Directly connect using SSH:
 ```
-   ssh -i ./ssh_keys/vagrant_rsa vagrant@[IP]
+ssh -i ./ssh_keys/vagrant_rsa vagrant@[IP]
 ```
 ## Troubleshooting SSH Issues
 
