@@ -66,6 +66,15 @@ For an SFTP connection, use:
 ```
 sftp [IP]
 ```
+## rkhunter execution
+
+For a rkhunter execution:
+```
+sudo rkhunter -c --enable all --disable none --skip-keypress 1>/dev/null &
+
+```
+runs in background, output supressed
+audit details logged in /var/log/rkhunter.log (readable by root only due to security purposes)
 ## Cleaning Up
 
 To destroy all managed machines, run:
