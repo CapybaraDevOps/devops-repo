@@ -1,13 +1,13 @@
 
 ########################Variables########################
-NODE_COUNT = 2							# Amount of VMs
+NODE_COUNT = 2					# Amount of VMs
 BOX_IMAGE = "ubuntu/jammy64"			# Ubuntu 22.04
-VM_NAME = "node"						# VM name
-IP = "192.168.100."						# Private subnet
+VM_NAME = "node"				# VM name
+IP = "192.168.100."				# Private subnet
 KEY_PATH = "./ssh_keys/vagrant_rsa"		# PATH to SSH key
-KEY_PATH_DEST = "~/.ssh/vagrant_rsa"	# Destination to SSH PATH
-RAM = "2048"							# RAM
-CPUS = 1								# CPU
+KEY_PATH_DEST = "~/.ssh/vagrant_rsa"		# Destination to SSH PATH
+RAM = "2048"					# RAM
+CPUS = 1					# CPU
 ########################Variables########################
 
 Vagrant.configure("2") do |config|
