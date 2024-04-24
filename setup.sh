@@ -22,8 +22,10 @@ sudo systemctl enable ssh
 
 # Ensure if rkhunter is installed
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vsftpd rkhunter
-sudo rkhunter --update #update rootkit database
-sudo rkhunter --propupd #apply configuration
-# Run rkhunter once, the output is in /var/log/rkhunter.log
-sudo rkhunter -c --enable all --disable none --skip-keypress
+#update configuration /etc/rkhunter.conf
+sudo awk -i inplace 'BEGIN{FS=OFS="="} $1=="MIRRORS_MODE"{$2=0} $1=="UPDATE_MIRRORS"{$2=1} $1=="WEB_CMD"{$2=""} 1' /etc/rkhunter.conf 1>/dev/null
 
+sudo rkhunter --update 1>/dev/null #update rootkit database
+sudo rkhunter --propupd 1>/dev/null #apply configuration
+# Run rkhunter once, in background, the output is in /var/log/rkhunter.log
+sudo rkhunter -c --enable all --disable none --skip-keypress 1>/dev/null &
