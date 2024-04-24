@@ -22,7 +22,8 @@ sudo systemctl enable ssh
 
 # Ensure if rkhunter is installed
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vsftpd rkhunter
-sudo rkhunter --update
-sudo rkhunter --propupd
+sudo rkhunter --update #update rootkit database
+sudo rkhunter --propupd #apply configuration
+# Run rkhunter once, the output is in /var/log/rkhunter.log
 sudo rkhunter -c --enable all --disable none --skip-keypress
 
