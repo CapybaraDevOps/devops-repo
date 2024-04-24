@@ -13,7 +13,7 @@ This guide covers the setup of multiple virtual machines (VMs) using Vagrant, co
 First, generate an SSH key pair in the `ssh_keys` folder if not already present:
 ```
 mkdir -p ssh_keys
-ssh-keygen -t rsa -b 4096 -f ssh_keys/vagrant_rsa -C "vagrant@local" -N '""'
+ssh-keygen -t rsa -b 4096 -f ssh_keys/vagrant_rsa -C "vagrant@local"
 ```
 ## Configuration
 
@@ -56,9 +56,9 @@ If you faced with some issue while connect via SSH like:
 IT IS POSSIBLE THAT SOMEONE IS DOING SOMETHING NASTY!
 ``` 
 
-use the following command to update your local SSH known hosts:
+use the following command to update your local SSH known hosts, or delete lines with IP manualy in file ~/.ssh/known_hosts
 ```
-ssh-keyscan -H [IP] >> ~/.ssh/known_hosts
+ssh-keygen -R [IP]
 ```
 ## SFTP Connection
 
