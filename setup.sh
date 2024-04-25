@@ -13,6 +13,7 @@ Host 192.168.100.*
     IdentitiesOnly yes
 END
 chmod 600 ~/.ssh/config
+echo "PermitRootLogin no" | sudo tee -a /etc/ssh/sshd_config 
 
 # Ensure if sftp is installed and started 
 sudo apt -y update
@@ -28,4 +29,5 @@ sudo awk -i inplace 'BEGIN{FS=OFS="="} $1=="MIRRORS_MODE"{$2=0} $1=="UPDATE_MIRR
 sudo rkhunter --update 1>/dev/null #update rootkit database
 sudo rkhunter --propupd 1>/dev/null #apply configuration
 # Run rkhunter once, in background, the output is in /var/log/rkhunter.log
-sudo rkhunter -c --enable all --disable none --skip-keypress 1>/dev/null &
+sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
+rm /tmp/vagrant-shell #self destruction of vagrant shell file since it considered as suspicious by rkhunter
