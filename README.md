@@ -74,6 +74,12 @@ sudo rkhunter -c --enable all --disable none --skip-keypress 1>/dev/null &
 ```
 runs in background, output supressed
 audit details logged in /var/log/rkhunter.log (readable by root only due to security purposes)
+## create_dir BASH script
+
+This scripts creates directory, required for logging with a file and provides user with necessary rights. It also starts a cronjob from crontab_job.sh.
+## crontab_job BASH script
+
+It serves a cronjob code container. This cronjob serves for peridoic time, hostname and IP logging and consecutive sending to the neighboring machine.
 ## Cleaning Up
 
 To destroy all managed machines, run:
