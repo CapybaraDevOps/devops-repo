@@ -8,6 +8,31 @@ This guide covers the setup of multiple virtual machines (VMs) using Vagrant, co
 - VirtualBox installed as the provider for Vagrant.
 - An SSH client installed on your machine.
 
+## Configuring Line Endings in Text Editors
+
+Properly setting the end-of-line sequence in your text editor ensures compatibility across different operating systems. Below are the steps for configuring Visual Studio Code and Notepad++ to use LF (Line Feed), which is commonly used in Unix-based systems like Linux and macOS.
+
+### Visual Studio Code Configuration
+
+1. **Open Visual Studio Code.**
+2. **Access the Command Palette:**
+   - Windows: Press `Ctrl+Shift+P`
+   - macOS: Press `Cmd+Shift+P`
+3. **Type `Change End of Line Sequence` and select the option from the list.**
+4. **Choose `LF` from the list to set the line ending for the current file to Unix format.**
+
+### Notepad++ Configuration
+
+1. **Open Notepad++.**
+2. **Navigate to the Settings:**
+   - Go to the `Settings` menu and select `Preferences.`
+3. **Adjust New Document Settings:**
+   - In the Preferences window, select the `New Document` tab.
+   - Under the `Format` section, choose `Unix (LF)` as the default format for new files.
+4. **Click `Close` to apply the changes.**
+
+# Startup Vagrant project
+
 ### SSH Key Setup
 
 First, generate an SSH key pair in the `ssh_keys` folder if not already present:
