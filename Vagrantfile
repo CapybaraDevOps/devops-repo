@@ -1,6 +1,6 @@
 
 ######################## Variables ########################
-NODE_COUNT = 2							# Amount of VMs
+NODE_COUNT = 3							# Amount of VMs
 BOX_IMAGE = "ubuntu/jammy64"			# Ubuntu 22.04
 VM_NAME = "node"						# VM name
 IP = "192.168.100."						# Private subnet
@@ -35,6 +35,8 @@ Vagrant.configure("2") do |config|
 			# Copy ssh_keys
 			vb.vm.provision "file", source: KEY_PATH, destination: KEY_PATH_DEST
 			vb.vm.provision "file", source: "#{KEY_PATH}.pub", destination: "#{KEY_PATH_DEST}.pub"
+			# Copy scrips for crontab
+			vb.vm.provision "file", source: "crontab_job.sh", destination: "~/"
 			# run script
 			vb.vm.provision "shell", path: "setup.sh", privileged: false, args: [i, NODE_COUNT, IP, VM_NAME]
 		end

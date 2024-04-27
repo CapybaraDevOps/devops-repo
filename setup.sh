@@ -1,5 +1,6 @@
 #!/bin/bash
 
+#################################### preconfig ####################################
 # Append Public key to authorized_keys
 cat ~/.ssh/vagrant_rsa.pub >> ~/.ssh/authorized_keys
 # Set read pervition for privat key
@@ -38,6 +39,7 @@ sudo apt install openssh-server -y
 sudo systemctl start ssh
 sudo systemctl enable ssh
 
+#################################### rkhunter ####################################
 # Ensure if rkhunter is installed
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vsftpd rkhunter
 #update configuration /etc/rkhunter.conf
@@ -49,15 +51,34 @@ sudo rkhunter --propupd 1>/dev/null #apply configuration
 sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
 rm /tmp/vagrant-shell #self destruction of vagrant shell file since it considered as suspicious by rkhunter
 
+#################################### Inventory ####################################
 # Create invenroy file with IP of other VMs
 NODE_INDEX=$1
 NODE_COUNT=$2
 IP_HOST=$3
 VM_NAME=$4
 for j in $(seq 1 $NODE_COUNT); do
-	if [ $j -ne $NODE_INDEX ]; then
+	if [[ $j -ne $NODE_INDEX ]]; then
 		node_ip="${IP_HOST}$((9 + j))"
 		node_name="${VM_NAME}${j}"
-		echo "$node_name $node_ip" | sudo tee -a ~/inventory
+		echo "$node_name $node_ip" | tee -a ~/inventory
+        # add ip to known_host
+        ssh-keyscan -H $node_ip >> ~/.ssh/known_hosts
 	fi
 done
+
+#################################### Crontab ####################################
+# Path constants
+logpath=/var/log/sftp.log
+cronjob_file="~/crontab_job.sh"
+
+# Log file creation
+sudo touch $logpath
+
+# Rights' change to prevent exceptions
+sudo chown vagrant:root $logpath
+sudo chmod 664 $logpath
+
+# Crontab creation
+echo "Creation of cronjob on $cronjob_file"
+echo "* * * * * /bin/bash $cronjob_file" | crontab -
