@@ -7,23 +7,21 @@ class ReportGenerator:
   def __init__(self):
     self.lines = []
     self.output_file_prefix = datetime.datetime.now().strftime("%Y%m%d-%H%M%S")
-    self.folder_path = '/sftplogs'
+    self.file_path = '/var/log/sftp.log'
     self.output_file = os.path.join(f"/home/vagrant/reports/{self.output_file_prefix}_report.txt")
     self.grouped_lines = defaultdict(Counter)
 
-  def file_paths(self):
-    all_entries = os.listdir(self.folder_path)
-    return [os.path.join(self.folder_path, entry) for entry in all_entries if os.path.isfile(os.path.join(self.folder_path, entry))]
-
-  def read_file(self,file_path):
+  def read_file(self, file_path):
     with open(file_path, 'r') as f:
       for line in f:
         split_line = line.strip().split('|')
-        self.lines.append(split_line)
-
+        # Validate lines
+        if len(split_line) == 3:
+          self.lines.append(split_line)        
+  
   def build_lines(self):
-    for file_path in self.file_paths():
-      self.read_file(file_path)
+    #for file_path in self.file_paths():
+      self.read_file(self.file_path)
 
   def group_by_host_name(self):
     for item in self.lines:

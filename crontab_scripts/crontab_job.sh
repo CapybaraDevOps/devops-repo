@@ -18,13 +18,33 @@ while read -r line; do
     lines+=("$part_after_space");
 done < "inventory"
 
+# Define time of pause
+time_pause=$(hostname | grep -o '[0-9]\+') 
 # SFTP file transfering
 for ip in "${lines[@]}"; do
     echo "Connecting to $ip"
-    # Download log file form node
-    sftp -o StrictHostKeyChecking=no "$ip" << EOF
-    get $logpath $temp_log
+    ############ Donwload ############
+    retries=3
+    while [ $retries -gt 0 ]; do
+        # Attempt to download log file form node
+        sftp -o StrictHostKeyChecking=no "$ip" << EOF
+        get $logpath $temp_log
 EOF
+        # Check if the SFTP command was successful
+        if [ $? -eq 0 ]; then
+            echo "Download successful"
+            break
+        else
+            echo "Download failed, attempting retry..."
+            ((retries--))
+            sleep 1
+        fi
+    done
+
+    if [ $retries -eq 0 ]; then
+        echo "Failed to download file after several attempts."
+        continue  # Skip to next IP
+    fi
     # Append data log to file
     echo "$log_data" >> "$temp_log"
     # Upload log file to node

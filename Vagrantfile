@@ -36,12 +36,10 @@ Vagrant.configure("2") do |config|
 			vb.vm.provision "file", source: KEY_PATH, destination: KEY_PATH_DEST
 			vb.vm.provision "file", source: "#{KEY_PATH}.pub", destination: "#{KEY_PATH_DEST}.pub"
 			# Copy scrips for crontab
-			vb.vm.provision "file", source: "crontab_job.sh", destination: "~/"
+			vb.vm.provision "file", source: "./crontab_scripts/crontab_job.sh", destination: "~/crontab_job.sh"
+			vb.vm.provision "file", source: "./crontab_scripts/reader.py", destination: "~/reader.py"
 			# run script
 			vb.vm.provision "shell", path: "setup.sh", privileged: false, args: [i, NODE_COUNT, IP, VM_NAME]
-			vb.vm.provision "file", source: "reader.py", destination: "~/reader.py"
-			vb.vm.provision "file", source: "crontab_job.sh", destination: "~/crontab_job.sh"
-			vb.vm.provision "shell", path: "create_dirs.sh", privileged: false
 		end
 	end
 end

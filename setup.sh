@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#################################### preconfig ####################################
+#################################### Rreconfig ####################################
 # Append Public key to authorized_keys
 cat ~/.ssh/vagrant_rsa.pub >> ~/.ssh/authorized_keys
 # Set read pervition for privat key
@@ -39,7 +39,7 @@ sudo apt install openssh-server -y
 sudo systemctl start ssh
 sudo systemctl enable ssh
 
-#################################### rkhunter ####################################
+#################################### Rkhunter ####################################
 # Ensure if rkhunter is installed
 sudo DEBIAN_FRONTEND=noninteractive apt-get install -y vsftpd rkhunter
 #update configuration /etc/rkhunter.conf
@@ -48,7 +48,7 @@ sudo awk -i inplace 'BEGIN{FS=OFS="="} $1=="MIRRORS_MODE"{$2=0} $1=="UPDATE_MIRR
 sudo rkhunter --update 1>/dev/null #update rootkit database
 sudo rkhunter --propupd 1>/dev/null #apply configuration
 # Run rkhunter once, in background, the output is in /var/log/rkhunter.log
-sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
+#sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
 rm /tmp/vagrant-shell #self destruction of vagrant shell file since it considered as suspicious by rkhunter
 
 #################################### Inventory ####################################
@@ -71,6 +71,11 @@ done
 # Path constants
 logpath=/var/log/sftp.log
 cronjob_file="~/crontab_job.sh"
+report_folder_path=~/reports
+cronjob_python="~/reader.py"
+
+# Log directory creation
+mkdir -p $report_folder_path
 
 # Log file creation
 sudo touch $logpath
@@ -80,5 +85,5 @@ sudo chown vagrant:root $logpath
 sudo chmod 664 $logpath
 
 # Crontab creation
-echo "Creation of cronjob on $cronjob_file"
-echo "* * * * * /bin/bash $cronjob_file" | crontab -
+(crontab -l ; echo "* * * * * /bin/bash $cronjob_file >> ~/crontab.log 2>&1") | crontab -
+(crontab -l ; echo "*/2 * * * * /usr/bin/python3 $cronjob_python") | crontab -
