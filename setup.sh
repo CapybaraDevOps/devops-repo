@@ -48,7 +48,7 @@ sudo awk -i inplace 'BEGIN{FS=OFS="="} $1=="MIRRORS_MODE"{$2=0} $1=="UPDATE_MIRR
 sudo rkhunter --update 1>/dev/null #update rootkit database
 sudo rkhunter --propupd 1>/dev/null #apply configuration
 # Run rkhunter once, in background, the output is in /var/log/rkhunter.log
-#sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
+sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
 rm /tmp/vagrant-shell #self destruction of vagrant shell file since it considered as suspicious by rkhunter
 
 #################################### Inventory ####################################
@@ -85,5 +85,5 @@ sudo chown vagrant:root $logpath
 sudo chmod 664 $logpath
 
 # Crontab creation
-(crontab -l ; echo "* * * * * /bin/bash $cronjob_file >> ~/crontab.log 2>&1") | crontab -
+(crontab -l ; echo "* * * * * /bin/bash $cronjob_file") | crontab -
 (crontab -l ; echo "*/2 * * * * /usr/bin/python3 $cronjob_python") | crontab -
