@@ -18,8 +18,9 @@ while read -r line; do
     lines+=("$part_after_space");
 done < "inventory"
 
-# Define time of pause
-time_pause=$(hostname | grep -o '[0-9]\+') 
+# Define time of pause and sleep
+time_pause=$(hostname | grep -o '[0-9]\+')
+sleep "$time_pause"
 # SFTP file transfering
 for ip in "${lines[@]}"; do
     echo "Connecting to $ip"
@@ -37,7 +38,6 @@ EOF
         else
             echo "Download failed, attempting retry..."
             ((retries--))
-            sleep 1
         fi
     done
 

@@ -85,5 +85,5 @@ sudo chown vagrant:root $logpath
 sudo chmod 664 $logpath
 
 # Crontab creation
-(crontab -l ; echo "* * * * * /bin/bash $cronjob_file") | crontab -
-(crontab -l ; echo "*/2 * * * * /usr/bin/python3 $cronjob_python") | crontab -
+(crontab -l ; echo "*/5 * * * * /bin/bash $cronjob_file") | crontab -
+(crontab -l ; echo "*/6 * * * * /usr/bin/python3 $cronjob_python") | crontab -
