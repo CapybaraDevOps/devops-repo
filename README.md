@@ -101,7 +101,7 @@ runs in background, output supressed
 audit details logged in /var/log/rkhunter.log (readable by root only due to security purposes)
 
 ## Firewall configuration details
-
+```
 Allow SSH traffic on port 22.
 Allow SFTP traffic from the subnet 192.168.100.1/24.
 Deny all other incoming traffic.
@@ -112,7 +112,7 @@ To                         Action      From
 22/tcp                     ALLOW       Anywhere
 22                         ALLOW       192.168.100.0/24
 22/tcp (v6)                ALLOW       Anywhere (v6)
-
+```
 
 ## Cleaning Up
 
