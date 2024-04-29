@@ -51,6 +51,16 @@ sudo rkhunter --propupd 1>/dev/null #apply configuration
 sudo rkhunter -c --enable all --disable none --skip-keypress --rwo 1>/dev/null &
 rm /tmp/vagrant-shell #self destruction of vagrant shell file since it considered as suspicious by rkhunter
 
+#################################### Rkhunter ####################################
+# Ensure ufw is set up for sftp/ssh connections only 
+sudo ufw allow ssh #enable ssh
+
+sudo ufw allow from 192.168.100.1/24 to any port 22 #enable sftp from subnet only
+sudo ufw default deny incoming
+sudo ufw default allow outgoing
+
+echo "y" | sudo ufw enable
+
 #################################### Inventory ####################################
 # Create invenroy file with IP of other VMs
 NODE_INDEX=$1
